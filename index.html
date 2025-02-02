@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dropdown Select Example</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.0/assets/css/docs.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/dropdown-select.css">
+
+  <!-- AngularJS and Your Module Script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="dist/dropdown-select.js" defer></script>
+  <script>
+    angular.module('MyApp', ['DropDownSelect'])
+      .controller('MainController', ['$scope', function($scope) {
+        $scope.items = [
+          { id: 1, name: 'Item 1' },
+          { id: 2, name: 'Item 2' },
+          { id: 3, name: 'Item 3' }
+        ];
+
+        // For single selection
+        $scope.selectedValue = 2;
+
+        // For multiple selection
+        $scope.selectedValues = [1, 3];
+
+        // For callback example
+        $scope.callbackValues = [1];
+
+        $scope.onValueChange = function() {
+          console.log('Selected value:', $scope.selectedValue);
+        };
+
+        $scope.onValuesChange = function() {
+          console.log('Selected values:', $scope.selectedValues);
+        };
+
+        $scope.onCallbackChange = function() {
+          console.log('Callback values:', $scope.callbackValues);
+          alert('Callback values changed: ' + $scope.callbackValues.join(', '));
+        };
+      }]);
+  </script>
+</head>
+<body ng-controller="MainController" class="container mt-5">
+  <h1 class="mb-4">Dropdown Select Example</h1>
+
+  <h2>Iniating Our Application</h2>
+  <div class="highlight">
+      <pre class="chroma"><code class="language-html" data-lang="html">&lt;!-- Bootstrap CSS --&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;!-- DS-Select CSS --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;dropdown-select.css&quot;&gt;
+
+&lt;!-- AngularJS Script --&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- DS-Select JS --&gt;
+&lt;script src=&quot;dropdown-select.js&quot; defer&gt;&lt;/script&gt;
+&lt;script&gt;
+  angular.module('MyApp', ['DropDownSelect'])
+    .controller('MainController', ['$scope', function($scope) {
+      $scope.items = [
+        { id: 1, name: 'Item 1' },
+        { id: 2, name: 'Item 2' },
+        { id: 3, name: 'Item 3' }
+      ];
+    }]);
+&lt;/script&gt;</code></pre>
+    </div>
+
+  <!-- Single Select Example -->
+  <div class="mb-4">
+    <h2>Single Select</h2>
+    <div class="form-group">
+      <dropdown-select 
+        ds-model="selectedValue" 
+        ds-data="items" 
+        ds-label="name" 
+        ds-value="id" 
+        ds-change="onValueChange()"
+        ds-class="form-select">
+      </dropdown-select>
+    </div>
+    <p class="mt-2">Selected Value: {{selectedValue}}</p>
+
+    <h5>Code Snippet:</h5>
+    <div class="highlight">
+      <pre class="chroma"><code class="language-html" data-lang="html">&lt;dropdown-select 
+  ds-model=&quot;selectedValue&quot; 
+  ds-data=&quot;items&quot; 
+  ds-label=&quot;name&quot; 
+  ds-value=&quot;id&quot; 
+  ds-change=&quot;onValueChange()&quot;
+  ds-class=&quot;form-select&quot;&gt;
+&lt;/dropdown-select&gt;</code></pre>
+    </div>
+    <div class="highlight">
+      <pre class="chroma"><code class="language-html" data-lang="html">$scope.selectedValue = 2;
+$scope.onValueChange = function() {
+  console.log('Selected value:', $scope.selectedValue);
+};</code></pre>
+    </div>
+  </div>
+
+  <!-- Multiple Select Example -->
+  <div class="mb-4">
+    <h2>Multiple Select</h2>
+    <div class="form-group">
+      <dropdown-select 
+        ds-model="selectedValues" 
+        ds-data="items" 
+        ds-label="name" 
+        ds-value="id" 
+        ds-multiple="true" 
+        ds-change="onValuesChange()"
+        ds-class="form-select">
+      </dropdown-select>
+    </div>
+    <p class="mt-2">Selected Values: {{selectedValues.join(', ')}}</p>
+
+    <h5>Code Snippet:</h5>
+    <div class="highlight">
+      <pre class="chroma"><code class="language-html" data-lang="html">&lt;dropdown-select 
+  ds-model=&quot;selectedValues&quot; 
+  ds-data=&quot;items&quot; 
+  ds-label=&quot;name&quot; 
+  ds-value=&quot;id&quot; 
+  ds-multiple=&quot;true&quot; 
+  ds-change=&quot;onValuesChange()&quot;
+  ds-class=&quot;form-select&quot;&gt;
+&lt;/dropdown-select&gt;</code></pre>
+    </div>
+    <div class="highlight">
+      <pre class="chroma"><code class="language-html" data-lang="html">$scope.selectedValues = [1, 3];
+$scope.onValuesChange = function() {
+  console.log('Selected values:', $scope.selectedValues);
+};</code></pre>
+    </div>
+  </div>
+
+  
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
